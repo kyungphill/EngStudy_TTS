@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="" [routerLink]="['/contacts']" (click)="initCreate()">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>List</ion-label>
+      <ion-badge>6</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/articles']" (click)="initCreate()">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>Article</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/new']" (click)="initCreate()">
+      <ion-icon name="create"></ion-icon>
+      <ion-label>Create</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<ion-content class="ion-padding">
+  <form *ngIf="true" (ngSubmit)="onSubmit()">
+    <form>
+      <ion-label style="margin-left: 10px;" position="stacked">Article</ion-label>
+      <ion-item *ngIf="toggleInputArticle">
+        <ion-item>
+          <ion-button (click)="backArticleMenu()">Back</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-input autocapitalize="on"
+          clearInput
+          placeholder="Enter New Article"
+          [(ngModel)]="sentence.article"
+          name="article"></ion-input>
+        </ion-item>
+      </ion-item>
+      <ion-item *ngIf="toggleChooseArticle">
+        <ion-item>
+          <ion-button (click)="backArticleMenu()">Back</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>Select:</ion-label>
+          <ion-select
+            interface="action-sheet"
+            class="custom-options"
+            (ionChange)="onChange($event)">
+            <ion-select-option
+              *ngFor="let article of articles"
+              [value]="article">
+              {{article}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-item> 
+      <div *ngIf="toggleArticle" class="ion-margin-vertical">
+        <ion-button 
+          type="submit" color="secondary" expand="block"
+          (click)="createNewArticle()">Create New Article</ion-button>
+        <ion-button
+          type="submit" color="secondary" expand="block"
+          (click)="chooseArticle()"
+          >Already existed article</ion-button>
+      </div>
+    </form> 
+    <ion-item>
+      <ion-label position="stacked">Title</ion-label>
+      <ion-input autocapitalize="on"
+        clearInput
+        placeholder="Enter title"
+        [(ngModel)]="sentence.title"
+        name="title"
+        ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Script number</ion-label>
+      <ion-input autocapitalize="on"
+      clearInput
+      placeholder="Enter number of script order"
+      [(ngModel)]="sentence.script_order"
+      name="script_order"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Eng Contents</ion-label>
+      <ion-input autocapitalize="on"
+        clearInput
+        placeholder="Enter title"  
+        [(ngModel)]="sentence.eng_content"
+        name="eng_content"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Kor Contents</ion-label>
+      <ion-input autocapitalize="on"
+        clearInput
+        placeholder="Enter title"  
+        [(ngModel)]="sentence.kor_content"
+        name="kor_content"></ion-input>
+    </ion-item>
+    <div class="ion-margin-vertical">
+      <ion-button type="submit" color="secondary" expand="block">Submit</ion-button>
+    </div>
+  </form>
+</ion-content>

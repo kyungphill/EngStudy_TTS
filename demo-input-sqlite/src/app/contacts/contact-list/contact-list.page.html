@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Demo Sentence editor </ion-title>    
+  </ion-toolbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="" [routerLink]="['/contacts']">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>List</ion-label>
+      <ion-badge>6</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/articles']">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>Article</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/new']">
+      <ion-icon name="create"></ion-icon>
+      <ion-label>Create</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<ion-content>
+
+
+
+  <ion-searchbar placeholder="Search" 
+    (ionClear)="doSerchClear()"
+    (ionChange)="doSerchBarChange($event)">
+  </ion-searchbar>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let sentence of sentences">
+      <ion-item>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{sentence.article}}</ion-card-subtitle>
+            <ion-card-content>{{sentence.title}}</ion-card-content>
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
+      <ion-item-options side="start">        
+        <ion-item-option [routerLink]="['/edit', sentence.id]">
+          <ion-icon slot="icon-only" name="create" color="secondary"></ion-icon>
+        </ion-item-option>        
+        <ion-item-option (click)="delete(sentence)">
+          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-card>
+    
+  </ion-card>
+</ion-content>
+

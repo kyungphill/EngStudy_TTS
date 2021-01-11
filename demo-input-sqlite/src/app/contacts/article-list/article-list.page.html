@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Demo Sentence editor</ion-title>    
+  </ion-toolbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="" [routerLink]="['/contacts']">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>List</ion-label>
+      <ion-badge>6</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/articles']">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>Artile</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="" [routerLink]="['/new']">
+      <ion-icon name="create"></ion-icon>
+      <ion-label>Create</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<ion-content>
+  <ion-list *ngIf="toggleCards">
+    <ion-item-sliding *ngFor="let article of articles">
+      <ion-item>
+        <ion-card >
+          <ion-card-header>
+            <ion-card-subtitle>ARTICLE</ion-card-subtitle>
+            <ion-card-title
+              (click)="openArticle(article)">{{article}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option (click)="deleteArticle(article)">
+          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-card *ngIf="!toggleCards">
+    <ion-card-header>
+      <ion-button (click)="showArticles()">Show Articles</ion-button>
+      <ion-card-subtitle>ARTICLE</ion-card-subtitle>
+            <ion-card-title>{{chosenArticle}}</ion-card-title>
+            <ion-img [src]="imgURL" style="width: 20rem; height: 10rem;"></ion-img> 
+            <ion-icon size="large" name="camera"></ion-icon>
+            <ion-icon size="large" (click)="getGallery()" name="image"></ion-icon>
+            <ion-card-content>
+              <ion-item-sliding *ngFor="let sentence of selectedSentences">
+                <ion-item (click)="onSentence(sentence)">
+                  <span style="color:green; margin-right: 10px;">{{sentence.script_order}} </span>
+                  {{sentence.title}}
+                </ion-item>
+                <ion-item-options side="start">        
+                  <ion-item-option [routerLink]="['/edit', sentence.id]">
+                    <ion-icon slot="icon-only" name="create" color="secondary"></ion-icon>
+                  </ion-item-option>        
+                  <ion-item-option (click)="delete(sentence)" >
+                    <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+                  </ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-card-content>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
+
